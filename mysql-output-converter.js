@@ -1,9 +1,6 @@
-function example() {
-    document.getElementById('mysql').value = document.getElementById('example').innerHTML;
-    
-    mysql2csv();
-}
-
+/**
+ * Convert MySQL output to CSV
+ */
 function mysql2csv(quotes) {
     var mysql = document.getElementById('mysql').value;
     
@@ -19,6 +16,9 @@ function mysql2csv(quotes) {
     document.getElementById('output').value = rows.join('\n');
 }
 
+/**
+ * Convert MySQL output to HTML table
+ */
 function mysql2html() {
     var mysql = document.getElementById('mysql').value;
     
@@ -28,16 +28,22 @@ function mysql2html() {
     
     var rows = convert_lines(mysql, column_callback);
     
-    var html = '<table><thead><tr>';
+    var html = '<table>\n\t<thead>\n\t\t';
     
     // Strip out first row as header
+    html += rows[0].replace(/td>/g, 'th>');
+    rows.splice(0, 1);
     
-    
-    html += '</tr></thead><tbody>' + rows.join('\n') + '</tbody></table>';
+    html += '\n\t</thead>\n\t<tbody>\n\t\t' + rows.join('\n\t\t') + '\n\t</tbody>\n</table>';
     
     document.getElementById('output').value = html;
 }
 
+/**
+ * Takes the MySQL output, trims it to just the data table, splits
+ * the data into rows and columns, and returns the rows formatted
+ * by the callback
+ */
 function convert_lines(mysql, column_callback) {
     // Trim down input to the start and end of the actual data
     mysql = mysql.substring(mysql.indexOf('+--'), mysql.lastIndexOf('--+') + 3);
@@ -98,4 +104,13 @@ function convert_lines(mysql, column_callback) {
     
     
     return rows;
+}
+
+/**
+ * Populates the MySQL field with example data and converts it
+ */
+function example() {
+    document.getElementById('mysql').value = document.getElementById('example').innerHTML.replace('&gt;', '>');
+    
+    mysql2csv();
 }

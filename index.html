@@ -37,12 +37,16 @@
     <footer><a href="http://blog.fligtar.com">view the blog post</a> &middot; <a href="https://github.com/fligtar/mysql-output-converter">see the source</a></footer>
     
     <div id="example">
-+----+------------------------+----------------------------------+--------------+------------------------+---------------------+---------------------+
-| id | email                  | password                         | name         | buguser                | created             | modified            |
-+----+------------------------+----------------------------------+--------------+------------------------+---------------------+---------------------+
-|  1 | fligtar@gmail.com      | add0f0972b62fc1a8d2b302d60ebfebb | Justin Scott | fligtar@mozilla.com    | 0000-00-00 00:00:00 | 0000-00-00 00:00:00 | 
-|  2 | jbalogh@jeffbalogh.org |                                  | Jeff Balogh  | jbalogh@jeffbalogh.org | 0000-00-00 00:00:00 | 0000-00-00 00:00:00 | 
-+----+------------------------+----------------------------------+--------------+------------------------+---------------------+---------------------+
+mysql> SELECT * FROM word_replacements;
++----+-----------+-------------+---------------------+
+| id | word      | replacement | created             |
++----+-----------+-------------+---------------------+
+|  1 | favourite | favorite    | 2010-01-22 01:06:59 | 
+|  2 | centre    | center      | 2010-01-22 01:06:59 | 
+|  3 | flavour   | flavor      | 2010-01-22 01:14:30 | 
+|  4 | colour    | color       | 2010-01-22 01:14:30 | 
++----+-----------+-------------+---------------------+
+4 rows in set (0.00 sec)
 </div>
 </body>
 </html>
