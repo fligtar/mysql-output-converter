@@ -1,6 +1,44 @@
-/
+function example() {
+    document.getElementById('mysql').value = document.getElementById('example').innerHTML;
+    
+    mysql2csv();
+}
 
-function mysql2csv(mysql, quotes) {
+function mysql2csv(quotes) {
+    var mysql = document.getElementById('mysql').value;
+    
+    var column_callback = function(columns) {
+        if (quotes)
+            return '"' + columns.join('","') + '"';
+        else
+            return columns.join(',');
+    }
+    
+    var rows = convert_lines(mysql, column_callback);
+    
+    document.getElementById('output').value = rows.join('\n');
+}
+
+function mysql2html() {
+    var mysql = document.getElementById('mysql').value;
+    
+    var column_callback = function(columns) {
+            return '<tr><td>' + columns.join('</td><td>') + '</td></tr>';
+    }
+    
+    var rows = convert_lines(mysql, column_callback);
+    
+    var html = '<table><thead><tr>';
+    
+    // Strip out first row as header
+    
+    
+    html += '</tr></thead><tbody>' + rows.join('\n') + '</tbody></table>';
+    
+    document.getElementById('output').value = html;
+}
+
+function convert_lines(mysql, column_callback) {
     // Trim down input to the start and end of the actual data
     mysql = mysql.substring(mysql.indexOf('+--'), mysql.lastIndexOf('--+') + 3);
     
@@ -28,7 +66,7 @@ function mysql2csv(mysql, quotes) {
        of the fields had a | in its value, so we split based on lengths
        instead, since MySQL outputs columns padded with spaces for
        equal length. */
-    var csv = [];
+    var rows = [];
     var str;
 
     for (var line in lines) {
@@ -54,17 +92,10 @@ function mysql2csv(mysql, quotes) {
             columns[column] = columns[column].replace(/^\s+|\s+$/g, '');
         }
         
-        // Join the columns back together for the CSV line
-        if (quotes) {
-            str = '"' + columns.join('","') + '"';
-        }
-        else {
-            str = columns.join(',');
-        }
-        
-        csv.push(str);
+        // We're ready to format based on the conversion type and add it
+        rows.push(column_callback(columns));
     }
     
     
-    return csv.join('\n');
+    return rows;
 }

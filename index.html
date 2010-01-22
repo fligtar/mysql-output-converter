@@ -2,18 +2,47 @@
 <html lang="en">
 
 <head>
-    <title>mysql2csv</title>
-    <script type="text/javascript" src="mysql2csv.js"></script>
+    <title>MySQL Output Converter</title>
+    <style type="text/css">
+        body {
+            font-family: verdana;
+        }
+        textarea {
+            width: 75%;
+        }
+        #example {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript" src="mysql-output-converter.js"></script>
 </head>
 
 <body>
-    <h1>mysql2csv</h1>
-    <h2>converts MySQL output to <acronym title="Comma Separated Values">CSV</acronym></h2>
+    <header><h1>MySQL Output Converter</h1></header>
     
-    <p>Paste the output of a MySQL query in the first box</p>
-<textarea id="mysql" cols="140" rows="20"></textarea>
-<input type="button" value="to csv" onclick="document.getElementById('csv').value = mysql2csv(document.getElementById('mysql').value, true);"/>
-<textarea id="csv" cols="140" rows="20"></textarea>
-
+    <section>
+        <p>Just paste the output of a MySQL query and convert it to <abbr title="Comma Separated Values">CSV</abbr> or an HTML table. <a href="#" onclick="example(); return false;">see an example</a></p>
+    
+        <p><textarea id="mysql" cols="70" rows="10"></textarea></p>
+    
+        <p>
+            <input type="button" value="to CSV (no quotes)" onclick="mysql2csv(false);"/>
+            <input type="button" value="to CSV (quotes)" onclick="mysql2csv(true);"/>
+            <input type="button" value="to HTML table" onclick="mysql2html();"/>
+        </p>
+    
+        <p><textarea id="output" cols="70" rows="10"></textarea></p>
+    </section>
+    
+    <footer><a href="http://blog.fligtar.com">view the blog post</a> &middot; <a href="https://github.com/fligtar/mysql-output-converter">see the source</a></footer>
+    
+    <div id="example">
++----+------------------------+----------------------------------+--------------+------------------------+---------------------+---------------------+
+| id | email                  | password                         | name         | buguser                | created             | modified            |
++----+------------------------+----------------------------------+--------------+------------------------+---------------------+---------------------+
+|  1 | fligtar@gmail.com      | add0f0972b62fc1a8d2b302d60ebfebb | Justin Scott | fligtar@mozilla.com    | 0000-00-00 00:00:00 | 0000-00-00 00:00:00 | 
+|  2 | jbalogh@jeffbalogh.org |                                  | Jeff Balogh  | jbalogh@jeffbalogh.org | 0000-00-00 00:00:00 | 0000-00-00 00:00:00 | 
++----+------------------------+----------------------------------+--------------+------------------------+---------------------+---------------------+
+</div>
 </body>
 </html>
