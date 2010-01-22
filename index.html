@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>mysql2csv</title>
+    <script type="text/javascript" src="mysql2csv.js"></script>
+</head>
+
+<body>
+    <h1>mysql2csv</h1>
+    <h2>converts MySQL output to <acronym title="Comma Separated Values">CSV</acronym></h2>
+    
+    <p>Paste the output of a MySQL query in the first box</p>
+<textarea id="mysql" cols="140" rows="20"></textarea>
+<input type="button" value="to csv" onclick="document.getElementById('csv').value = mysql2csv(document.getElementById('mysql').value, true);"/>
+<textarea id="csv" cols="140" rows="20"></textarea>
+
+</body>
+</html>
